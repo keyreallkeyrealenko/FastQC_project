@@ -4,7 +4,15 @@ import numpy as np
 import pandas as pd
 
 
-def per_base_n_content(sequence_added, path_to_dir):
+def per_base_n_content(sequence, path_to_dir):
+    lenght_max = max(len(x) for x in sequence)
+    sequence_added = []
+    for i in sequence:
+        if len(i) < lenght_max:
+            strok = i + "X" * (lenght_max - len(i))
+            sequence_added += [strok]
+        else:
+            sequence_added += [i]
     # Сделаем список с процентами N на каждой позиции
     list_of_n = []  # base-content for each position
     lenth_of_string = len(sequence_added[0])
@@ -25,8 +33,7 @@ def per_base_n_content(sequence_added, path_to_dir):
     np_list_of_n = np.array(list_of_n)
     df_of_n = pd.DataFrame(data=np_list_of_n, index=[i for i in range(1, len(np_list_of_n) + 1)], columns=["% N"])
     # Нарисуем график
-    fig_dims = (10, 8)
-    fig, ax = plt.subplots(figsize=fig_dims)
+    fig, ax = plt.subplots(figsize=(10, 8))
     aa = sns.lineplot(data=df_of_n, ax=ax)
     aa.set(xlabel='Position in read', ylabel='Frequency, %')
     aa.set_xlim(0, len(list_of_n))  # делаем плавающую границу
@@ -38,7 +45,15 @@ def per_base_n_content(sequence_added, path_to_dir):
     plt.savefig(path_to_dir + r'Per_base_N_content.png')
 
 
-def per_base_sequence_content(sequence_added, path_to_dir):
+def per_base_sequence_content(sequence, path_to_dir):
+    lenght_max = max(len(x) for x in sequence)
+    sequence_added = []
+    for i in sequence:
+        if len(i) < lenght_max:
+            strok = i + "X" * (lenght_max - len(i))
+            sequence_added += [strok]
+        else:
+            sequence_added += [i]
     # Делаем список со списками количества нуклеотидов на каждой позиции
     lenth_of_string = len(sequence_added[0])
     lenth_of_list = len(sequence_added)
@@ -70,9 +85,8 @@ def per_base_sequence_content(sequence_added, path_to_dir):
                                               index=[i for i in range(1, len(np_list_of_base_percentage) + 1)],
                                               columns=["A", "T", "G", "C"])
     # Нарисуем график
-    fig_dims = (10, 8)
-    fig, ax = plt.subplots(figsize=fig_dims)
-    plot = sns.lineplot(data=df_list_of_base_percentage, ax=ax)
+    fig, ax = plt.subplots(figsize=(10, 8))
+    plot = sns.lineplot(data=df_list_of_base_percentage, ax=ax, dashes=False)
     plot.set(xlabel='Position in read', ylabel='Frequency, %')
     plot.set_xlim(0, len(list_of_base))
     plot.set_ylim(0, 100)
@@ -99,27 +113,11 @@ def per_sequence_gc_content(sequence, path_to_dir):
     gc_df = pd.DataFrame(data=gc_array, index=[i for i in range(1, len(value) + 1)],
                          columns=["GC count per read", "Theoretical distribution"])
     # Построим график
-    ax1 = sns.displot(gc_df, kind="kde")
-    ax1.set(xlabel='Mean GC content (%)', ylabel='Density')
+    plt.subplots(figsize=(10, 8))
+    sns.kdeplot(data=gc_df)
+    plt.xlabel('Mean GC content (%)')
+    plt.ylabel('Density')
     plt.xticks(np.arange(0, 100, 5))
     plt.grid()
     plt.title("GC distribution overall sequences")
-    plt.savefig(path_to_dir + r'Per_sequence_GC_content.png')
-
-
-def create_gc_base_n_graphs(sequence, path_to_dir):
-    def get_new_string(seq):
-        lenght_max = max(len(x) for x in seq)
-        new_string = []
-        for i in sequence:
-            if len(i) < lenght_max:
-                strok = i + "X" * (lenght_max - len(i))
-                new_string += [strok]
-            else:
-                new_string += [i]
-        return new_string
-
-    sequence_added = get_new_string(sequence)
-    per_base_n_content(sequence_added, path_to_dir)
-    per_base_sequence_content(sequence_added, path_to_dir)
-    per_sequence_gc_content(sequence, path_to_dir)
+    plt.savefig(path_to_dir + 'Per_sequence_GC_content.png')
