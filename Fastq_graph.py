@@ -11,13 +11,16 @@ def per_base_n_content(sequence_added, path_to_dir):
     lenth_of_list = len(sequence_added)
     for j in range(lenth_of_string):
         n = 0
+        curent_len = 0
         for i in range(lenth_of_list):
             a = sequence_added[i][j]
+            if a != "X":
+                curent_len += 1
             if a == "N":
                 n += 1
             else:
                 continue
-        list_of_n += [n * 100 / lenth_of_list]
+        list_of_n += [n * 100 / curent_len]
     # Сделаем датафрейм
     np_list_of_n = np.array(list_of_n)
     df_of_n = pd.DataFrame(data=np_list_of_n, index=[i for i in range(1, len(np_list_of_n) + 1)], columns=["% N"])
@@ -32,7 +35,7 @@ def per_base_n_content(sequence_added, path_to_dir):
     plt.xticks(np.arange(0, len(list_of_n), len(list_of_n) // 20))
     plt.grid()
     plt.title("N content across all bases")
-    plt.savefig(path_to_dir + r'\Per_base_N_content')
+    plt.savefig(path_to_dir + r'Per_base_N_content.png')
 
 
 def per_base_sequence_content(sequence_added, path_to_dir):
@@ -43,8 +46,11 @@ def per_base_sequence_content(sequence_added, path_to_dir):
     for j in range(lenth_of_string):
         #      A0 T1 G2 C3
         pos = [0, 0, 0, 0]
+        curent_len = 0
         for i in range(lenth_of_list):
             a = sequence_added[i][j]
+            if a != "X":
+                curent_len += 1
             if a == "A":
                 pos[0] += 1
             elif a == "T":
@@ -55,15 +61,11 @@ def per_base_sequence_content(sequence_added, path_to_dir):
                 pos[3] += 1
             else:
                 continue
+        for i in range(4):
+            pos[i] = (pos[i]*100)/curent_len
         list_of_base += [pos]
-    # Переведем в проценты
-    lenth_list_of_base = len(list_of_base)
-    list_of_base_percentage = [[0*k, 0, 0, 0] for k in range(lenth_list_of_base)]  # base-content for each position in %
-    for i in range(lenth_list_of_base):
-        for j in range(4):
-            list_of_base_percentage[i][j] = (list_of_base[i][j] / sum(list_of_base[i])) * 100
     # Сделаем датафрейм
-    np_list_of_base_percentage = np.array(list_of_base_percentage).reshape(len(list_of_base_percentage), 4)
+    np_list_of_base_percentage = np.array(list_of_base).reshape(len(list_of_base), 4)
     df_list_of_base_percentage = pd.DataFrame(data=np_list_of_base_percentage,
                                               index=[i for i in range(1, len(np_list_of_base_percentage) + 1)],
                                               columns=["A", "T", "G", "C"])
@@ -72,13 +74,13 @@ def per_base_sequence_content(sequence_added, path_to_dir):
     fig, ax = plt.subplots(figsize=fig_dims)
     plot = sns.lineplot(data=df_list_of_base_percentage, ax=ax)
     plot.set(xlabel='Position in read', ylabel='Frequency, %')
-    plot.set_xlim(0, len(list_of_base_percentage))
+    plot.set_xlim(0, len(list_of_base))
     plot.set_ylim(0, 100)
     plt.legend(labels=["A", "T", "G", "C"])
-    plt.xticks(np.arange(0, len(list_of_base_percentage), len(list_of_base_percentage) // 20))
+    plt.xticks(np.arange(0, len(list_of_base), len(list_of_base) // 20))
     plt.grid()
     plt.title("Sequence content across all bases")
-    plt.savefig(path_to_dir + r'\Per_base_sequence_content')
+    plt.savefig(path_to_dir + r'Per_base_sequence_content.png')
 
 
 def per_sequence_gc_content(sequence, path_to_dir):
@@ -102,7 +104,7 @@ def per_sequence_gc_content(sequence, path_to_dir):
     plt.xticks(np.arange(0, 100, 5))
     plt.grid()
     plt.title("GC distribution overall sequences")
-    plt.savefig(path_to_dir + r'\Per_sequence_GC_content.png')
+    plt.savefig(path_to_dir + r'Per_sequence_GC_content.png')
 
 
 def create_gc_base_n_graphs(sequence, path_to_dir):
