@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
+
 def duplications(all_reads, outdir):
     # This script uses as input list of lines from fastafile with sequqncing results (4 lines
     # for a read) and output dir.
