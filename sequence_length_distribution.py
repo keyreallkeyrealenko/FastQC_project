@@ -14,6 +14,8 @@ def sequence_length_distribution(sequence, path_to_dir):
         return "F"
     distributions = []
     count_distributions = {}
+    f = 0
+    w = 0
     for i in lengths:
         if i not in distributions:
             distributions.append(i)
@@ -24,7 +26,7 @@ def sequence_length_distribution(sequence, path_to_dir):
         count_distributions[max(count_distributions) + 1] = 0
         count_distributions[min(count_distributions) - 1] = 0
     else:
-        return "W"
+        w += 1
     keys = sorted(list(count_distributions.keys()))
     values = [count_distributions[k] for k in keys]
     plt.figure(figsize=(10, 8))
