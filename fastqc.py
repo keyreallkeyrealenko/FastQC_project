@@ -37,7 +37,7 @@ sequence1 = [r for r in SeqIO.parse(input_file, "fastq")]
 def main():
     basic_statistics(file, input_file, output_dir)
     boxplot_test, per_quality_ps_test = compile_quality(file, output_dir)
-    duplications_test, overrepresented_test = duplications(file, output_dir)
+    dupl_test, overrepresented_test = duplications(file, output_dir)
     sequence_length_distribution(sequence1, output_dir)
     adapter_content(sequence1, output_dir)
     # base_n_content_test = per_base_n_content(file, output_dir)
@@ -47,7 +47,7 @@ def main():
     # sequence_gc_content_test = per_sequence_gc_content(file, output_dir)
     per_sequence_gc_content(sequence, output_dir)
     generate_html(output_dir, boxplot_test, per_quality_ps_test, dupl_test, overrepresented_test)
-    
+
 
 if __name__ == '__main__':
     main()
