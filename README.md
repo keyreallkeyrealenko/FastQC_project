@@ -1,6 +1,6 @@
 # FastQC reverse engineering
 
-<<<<<<< HEAD
+
 ## Description
 
 This project was done as a Python homework at the Bioinformatics Institute, it copies the functionality of the __FastQC__
@@ -32,7 +32,7 @@ Iy creates two plots: boxplots describe quality per base and lineplot describes 
 ### GC content
 The function create_gc_base_n_graphs(sequence, path_to_dir) takes list of sequences and path to output file.
 This function creates three graphs: Per base N content, Per base sequence content and Per sequence GC content.
-=======
+
 ### per_sequence_gc_content
 The function per_sequence_gc_content(sequence, path_to_dir) takes list of sequences and path to output file.
 This function plots the dependence of the distribution density of reads on the GC content in percent.
