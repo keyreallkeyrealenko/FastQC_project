@@ -4,6 +4,8 @@ import argparse
 from basic_statistics import basic_statistics
 from boxplots import compile_quality
 from duplications import duplications
+from sequence_length_distribution import sequence_length_distribution
+from adapter_content import adapter_content
 
 parser = argparse.ArgumentParser()
 
@@ -23,7 +25,8 @@ def main():
     basic_statistics(file, input_file, output_dir)
     boxplot_test, per_quality_ps_test = compile_quality(file, output_dir)
     duplications_test, overrepresented_test = duplications(file, output_dir)
-
+    sequence_length_distribution(file, output_dir)
+    adapter_content(file, output_dir)
 
 if __name__ == '__main__':
     main()
