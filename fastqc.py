@@ -32,6 +32,7 @@ for record in SeqIO.parse(input_file, "fastq"):
 
 sequence1 = [r for r in SeqIO.parse(input_file, "fastq")]
 
+
 def main():
     basic_statistics(file, input_file, output_dir)
     boxplot_test, per_quality_ps_test = compile_quality(file, output_dir)
