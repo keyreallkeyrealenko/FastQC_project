@@ -22,7 +22,8 @@ def sequence_length_distribution(sequence, path_to_dir):
             count_distributions[i] = 1
         else:
             count_distributions[i] += 1
-    if len(count_distributions) == 1:
+    if len(count_distributions) < 5:
+        # it does not seem to work well in such cases
         count_distributions[max(count_distributions) + 1] = 0
         count_distributions[min(count_distributions) - 1] = 0
     else:
