@@ -40,8 +40,7 @@ def sequence_length_distribution(sequence, path_to_dir):
     # Alternatively from Stack Overflow
     # from scipy.signal import find_peaks
     # hist, bin_edges = np.histogram(lengths)
-    # bin_edges = bin_edges[1:] 
+    # bin_edges = bin_edges[1:]
     # plt.plot(bin_edges, hist)
     # lengths, _ = find_peaks(hist)
     # plt.plot(bin_edges[lengths], hist[lengths], "x")
-    
