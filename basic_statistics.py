@@ -77,6 +77,6 @@ def basic_statistics(file, filename, output):
                                                                 poor_quality,
                                                                 Sequence_length,
                                                                 GC_percent]], font=dict(color='black', size=12),
-                                              align='left', fill_color='lightgrey'))],layout=layout)
+                                              align='left', fill_color='lightgrey'))], layout=layout)
 
     return fig.write_image(f'{output}/basic_statistics.pdf')
