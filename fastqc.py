@@ -28,9 +28,12 @@ def main():
     duplications_test, overrepresented_test = duplications(file, output_dir)
     sequence_length_distribution(file, output_dir)
     adapter_content(file, output_dir)
-    base_n_content_test = per_base_n_content(file, output_dir)
-    base_sequence_content_test = per_base_sequence_content(file, output_dir)
-    sequence_gc_content_test = per_sequence_gc_content(file, output_dir)
+    # base_n_content_test = per_base_n_content(file, output_dir)
+    per_base_n_content(file, output_dir)
+    # base_sequence_content_test = per_base_sequence_content(file, output_dir)
+    per_base_sequence_content(file, output_dir)
+    # sequence_gc_content_test = per_sequence_gc_content(file, output_dir)
+    per_sequence_gc_content(file, output_dir)
 
 
 if __name__ == '__main__':
