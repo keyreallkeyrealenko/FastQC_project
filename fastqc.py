@@ -26,7 +26,9 @@ if not os.path.exists(output_dir):
 with open(input_file) as f:
     file = f.readlines()
 
-sequence = [record for record in SeqIO.parse(input_file, "fastq")]
+sequence = []
+for record in SeqIO.parse(path_to_file, "fastq"):
+    sequence += [record.seq]
 
 
 def main():
