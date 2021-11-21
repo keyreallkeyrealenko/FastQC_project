@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[90]:
-
-
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -113,10 +107,3 @@ def duplications(all_reads, outdir):
     dupl_test = test_dupl_lvl(1 - unique_percentage)
     draw_plot(reads_df, n_of_reads, unique_percentage, outdir)
     return dupl_test, overrepresented_test
-
-if __name__ == '__main__':
-    with open('SRR1705851.fastq') as f:
-        file = f.readlines()
-    outdir = './'
-    duplications(file, outdir)
-
