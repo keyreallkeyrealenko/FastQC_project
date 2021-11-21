@@ -6,6 +6,7 @@ from basic_statistics import type_check
 
 
 def create_boxplot(dataframe, output, encoding):
+    """Function draws boxplot, as input it uses dataframe"""
     max_val = max(dataframe.max())
     if dataframe.shape[1] > 50:
         dataframe = dataframe.iloc[:, np.r_[:10, np.arange(11, dataframe.shape[1],
@@ -23,10 +24,13 @@ def create_boxplot(dataframe, output, encoding):
     plt.yticks(np.arange(0, max_val, step=2), fontsize=12)
     if (quartile_25 < 5).any() or (median_val < 20).any():
         ax.axes.set_title(f'Quality score across all bases ({encoding})\n(FAILURE!)', fontsize=20, pad=4)
+        flag = 'F'
     elif (quartile_25 < 10).any() or (median_val < 25).any():
         ax.axes.set_title(f'Quality score across all bases ({encoding})\n(WARNING!)', fontsize=20, pad=4)
+        flag = 'W'
     else:
         ax.axes.set_title(f'Quality score across all bases ({encoding})\n(Everything is OK!)', fontsize=20, pad=4)
+        flag = 'P'
     for i in range(0, len(dataframe.columns), 2):
         plt.axvspan(i, i + 1, color='#E1E1DB', alpha=0.4, zorder=0)
     plt.xlabel('Position in read (bp)', fontsize=16, labelpad=12)
@@ -39,10 +43,13 @@ def create_boxplot(dataframe, output, encoding):
         idx[4:None:3] = True
         indexes = np.arange(n).reshape(-1, 2)[idx].ravel()
         plt.xticks(indexes, fontsize=12)
-    return plt.savefig(f'{output}/boxplot.png')
+    plt.savefig(f'{output}/boxplot.png')
+    return flag
 
 
 def create_quality_plot(dataframe, output):
+    """Function creates per sequence quality scores plot.
+    As input takes a dictionary """
     dict_df = pd.DataFrame.from_dict(dataframe, orient='index')
     dict_df = dict_df.sort_index()
     dict_df.reset_index(level=0, inplace=True)
@@ -61,19 +68,26 @@ def create_quality_plot(dataframe, output):
     plt.ylim(ymin=0)
     if max_xvalue < 20:
         plt.title('Quality score distribution over all sequences\n(FAILURE!)', size=18)
+        flag = 'F'
     elif max_xvalue < 27:
         plt.title('Quality score distribution over all sequences\n(WARNING!)', size=18)
+        flag = 'W'
     else:
         plt.title('Quality score distribution over all sequences\n(Everything is OK!)', size=18)
+        flag = 'P'
     for i in range(min(dict_df.iloc[:, 0]), max(dict_df.iloc[:, 0]) + 1, 2):
         plt.axvspan(i, i + 1, color='#E1E1DB', alpha=0.4, zorder=0)
     plt.text(max_xvalue - 2, max_yvalue, 'Average Quality per read', color='red', size=14,
              bbox=dict(facecolor='white', edgecolor='grey'))
 
-    return plt.savefig(f'{output}/quality_scores.png')
+    plt.savefig(f'{output}/quality_scores.png')
+    return flag
 
 
 def compile_quality(file, output):
+    """This function takes file (read from main script), and
+    parse it to pass other functions that create plots.
+    Return flags indicating passing tests"""
     d_boxplot = {}
     dict_df = {}
     for record in range(len(file)):
@@ -91,7 +105,8 @@ def compile_quality(file, output):
             else:
                 dict_df[round(quality_value / len(quality))] += 1
 
-    create_quality_plot(dict_df, output)
+    quality_flag = create_quality_plot(dict_df, output)
     dataframe = pd.DataFrame(dict([(k, pd.Series(v)) for k, v in d_boxplot.items()]))
     encoding = type_check(file)
-    create_boxplot(dataframe, output, encoding)
+    boxplot_flag = create_boxplot(dataframe, output, encoding)
+    return boxplot_flag, quality_flag
