@@ -19,7 +19,7 @@ with open(input_file) as f:
 
 def main():
     basic_statistics(file, input_file, output_dir)
-    compile_quality(file,output_dir)
+    compile_quality(file, output_dir)
 
 
 if __name__ == '__main__':
