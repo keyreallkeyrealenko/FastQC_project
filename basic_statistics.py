@@ -23,6 +23,7 @@ def type_check(file):
 
 
 def handler(file):
+    """This functions performs basic statistics operations for a "basic statistics" table """
     GC = 0
     length = []
     poor_quality = 0
@@ -33,12 +34,13 @@ def handler(file):
             length.append(len(sequence))
         if i % 4 == 3:
             quality = file[i].strip()
-            seq_quality = 0
+            quality_length = len(quality)
+            bad_quality = 0
             for symbol in quality:
-                seq_quality += ord(symbol)
-            if seq_quality <= 20:
+                if ord(symbol) - 33 < 10:
+                    bad_quality += 1
+            if bad_quality/quality_length > 0.9:
                 poor_quality += 1
-
     total_seq = len(length)
     GC = round(GC * 100 / sum(length))
     length_range = set(length)
@@ -61,6 +63,11 @@ def basic_statistics(file, filename, output):
         Sequence_length = f'{min(Sequence_length)} - {max(Sequence_length)}'
     else:
         Sequence_length = max(Sequence_length)
+    layout = go.Layout(
+        autosize=False,
+        width=700,
+        height=400
+    )
     fig = go.Figure(data=[go.Table(header=dict(values=['Measure', 'Value'], fill_color='darkblue',
                                                font=dict(color='white', size=18)),
                                    cells=dict(values=[['Filename', 'File type', 'Encoding', 'Total Sequences',
@@ -69,6 +76,6 @@ def basic_statistics(file, filename, output):
                                                                 poor_quality,
                                                                 Sequence_length,
                                                                 GC_percent]], font=dict(color='black', size=12),
-                                              align='left',fill_color='lightgrey'))])
+                                              align='left', fill_color='lightgrey'))],layout=layout)
 
     return fig.write_image(f'{output}/basic_statistics.pdf')
