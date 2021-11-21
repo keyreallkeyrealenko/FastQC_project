@@ -30,13 +30,14 @@ sequence = []
 for record in SeqIO.parse(input_file, "fastq"):
     sequence += [record.seq]
 
+sequence1 = [r for r in SeqIO.parse(input_file, "fastq")]
 
 def main():
     basic_statistics(file, input_file, output_dir)
     boxplot_test, per_quality_ps_test = compile_quality(file, output_dir)
     duplications_test, overrepresented_test = duplications(file, output_dir)
-    sequence_length_distribution(sequence, output_dir)
-    adapter_content(sequence, output_dir)
+    sequence_length_distribution(sequence1, output_dir)
+    adapter_content(sequence1, output_dir)
     # base_n_content_test = per_base_n_content(file, output_dir)
     per_base_n_content(sequence, output_dir)
     # base_sequence_content_test = per_base_sequence_content(file, output_dir)
