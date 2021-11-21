@@ -50,6 +50,5 @@ def main():
     generate_html(output_dir, boxplot_test, per_quality_ps_test, dupl_test, overrepresented_test)
 
 
-
 if __name__ == '__main__':
     main()
