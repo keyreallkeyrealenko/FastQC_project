@@ -6,6 +6,7 @@ from boxplots import compile_quality
 from duplications import duplications
 from sequence_length_distribution import sequence_length_distribution
 from adapter_content import adapter_content
+from Fastq_graph import per_base_n_content, per_base_sequence_content, per_sequence_gc_content
 
 parser = argparse.ArgumentParser()
 
@@ -27,6 +28,9 @@ def main():
     duplications_test, overrepresented_test = duplications(file, output_dir)
     sequence_length_distribution(file, output_dir)
     adapter_content(file, output_dir)
+    per_base_n_content(file, output_dir)
+    per_base_sequence_content(file, output_dir)
+    per_sequence_gc_content(file, output_dir)
 
 if __name__ == '__main__':
     main()
