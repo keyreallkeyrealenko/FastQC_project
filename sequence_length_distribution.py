@@ -8,14 +8,14 @@ import matplotlib.pyplot as plt
 
 
 def sequence_length_distribution(sequence, path_to_dir):
+    f = 0
+    w = 0
     lengths = [len(r) for r in sequence]
     min_len = min(len(r2) for r2 in sequence)
     if min_len == 0:
-        return "F"
+        f += 1
     distributions = []
     count_distributions = {}
-    f = 0
-    w = 0
     for i in lengths:
         if i not in distributions:
             distributions.append(i)
