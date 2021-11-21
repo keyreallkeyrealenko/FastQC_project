@@ -1,5 +1,5 @@
-def generate_html(outdir, boxplot_test, dupl_test, overrepresented_test):
-    html_output=f'''<!DOCTYPE html>
+def generate_html(outdir, boxplot_test, per_quality_ps_test, dupl_test, overrepresented_test):
+    html_output = f'''<!DOCTYPE html>
     <html>
     <head>
     <meta charset="utf-8"/>
