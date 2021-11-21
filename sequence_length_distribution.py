@@ -22,7 +22,7 @@ def sequence_length_distribution(sequence, path_to_dir):
             count_distributions[i] = 1
         else:
             count_distributions[i] += 1
-    if len(count_distributions) < 5:
+    if len(count_distributions) <= 5:
         # it does not seem to work well in such cases
         count_distributions[max(count_distributions) + 1] = 0
         count_distributions[min(count_distributions) - 1] = 0
@@ -36,3 +36,11 @@ def sequence_length_distribution(sequence, path_to_dir):
     plt.title('Sequence length distribution')
     plt.grid()
     plt.savefig(path_to_dir + r'Sequence_length_distribution.png')
+
+    # Alternatively from Stack Overflow
+    # from scipy.signal import find_peaks
+    # hist, bin_edges = np.histogram(lengths)
+    # bin_edges = bin_edges[1:]
+    # plt.plot(bin_edges, hist)
+    # lengths, _ = find_peaks(hist)
+    # plt.plot(bin_edges[lengths], hist[lengths], "x")
