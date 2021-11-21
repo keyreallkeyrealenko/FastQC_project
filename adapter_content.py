@@ -16,6 +16,8 @@ def adapter_content(sequence, path_to_dir):
     small_3 = "TGGAATTCTCGG"
     small_5 = "GATCGTCGGACT"
     transposase = "CTGTCTCTTATA"
+    w = 0
+    f = 0
     plt.figure(figsize=(10, 8))
     adapters = [universal, small_3, small_5, transposase]
     max_len = max(len(r1) for r1 in sequence)
@@ -31,9 +33,9 @@ def adapter_content(sequence, path_to_dir):
         values = [count_adapters[k]/len(sequence)*100 for k in keys]
         for x in values:
             if x >= 5:
-                return "W"
+                w += 1
             elif x >= 5:
-                return "F"
+                f += 1
         plt.plot(keys, values)
         count_adapters = [{i: 0} for i in range(max_len)]
     plt.legend(labels=["Illumina Universal Adapter", "Illumina Small RNA 3' Adapter",
