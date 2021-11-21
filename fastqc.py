@@ -2,6 +2,7 @@
 # and then executes all imported functions and save all plots, tables to output (-o) directory
 import argparse
 from basic_statistics import basic_statistics
+from duplications import duplications
 
 parser = argparse.ArgumentParser()
 
@@ -19,6 +20,7 @@ with open(input_file) as f:
 
 def main():
     basic_statistics(file, input_file, output_dir)
+    duplications_test, overrepresented_test = duplications(file, output_dir)
 
 
 if __name__ == '__main__':
