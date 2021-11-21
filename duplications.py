@@ -51,8 +51,8 @@ def duplications(all_reads, outdir):
         coords_dedup = coords_dedup.drop(columns='Count')
         groups = [str(i) for i in range(1, 10)]
         groups.extend(['>10', '>50', '>100', '>500', '>1k', '>5k', '>10k'])
-        graph_df = pd.DataFrame(0, index=groups,
-                               columns=['% Total sequences', '% Deduplicated sequences'])
+        graph_df = pd.DataFrame(0, index=groups, columns=['% Total sequences',
+                                                          '% Deduplicated sequences'])
         for i in coords_dup.index:
             graph_df.loc[i, '% Total sequences'] = coords_dup.loc[i, 'Percentage']
             graph_df.loc[i, '% Deduplicated sequences'] = coords_dedup.loc[i, 'Percentage']
