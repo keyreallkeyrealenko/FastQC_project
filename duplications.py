@@ -1,9 +1,10 @@
 import pandas as pd
 import matplotlib.pyplot as plt
- 
+
+
 def duplications(all_reads, outdir):
     # This script uses as input list of lines from fastafile with sequqncing results (4 lines
-    # for a read) and output dir. 
+    # for a read) and output dir.
     # This function:
     # - saves one plot of levels of duplication
     # - saves one TSV with overrepresented sequences, each of wich take at least 0.1%
@@ -13,9 +14,9 @@ def duplications(all_reads, outdir):
     # :args all_reads - list of lines from fastafile with sequqncing results
     # :args outdir - dir for output files
     def which_cutoff(df):
-    # which_cutoff function assigns group to each unique sequence by number of its' copies
-    #
-    # :args df - dataframe with counts of unique sequences
+        # which_cutoff function assigns group to each unique sequence by number of its' copies
+        #
+        # :args df - dataframe with counts of unique sequences
         if df['Count'] > 10000:
             return '>10k'
         elif df['Count'] > 5000:
@@ -32,17 +33,16 @@ def duplications(all_reads, outdir):
             return '>10'
         else:
             return str(int(df['Count']))
-    
- 
+
     def draw_plot(reads_df, n_of_reads, unique_percentage, outdir):
-    #  draw_plot function saves plot of number of duplicated and deduplicated sequences
-    #  by duplication level in orogonal set of reads.
-    #  :args reads_df - pandas dataframe with unique sequence, their count and assigned
-    #  cutoff group
-    #  :args n_of_reads - number of reads in original set
-    #  :args unique_percentage - percentage of unique seqs in original set
-    #  :args outdir - path for saving plot
-        reads_df['Cutoff'] = reads_df.apply(which_cutoff, axis = 1)
+        #  draw_plot function saves plot of number of duplicated and deduplicated sequences
+        #  by duplication level in orogonal set of reads.
+        #  :args reads_df - pandas dataframe with unique sequence, their count and assigned
+        #  cutoff group
+        #  :args n_of_reads - number of reads in original set
+        #  :args unique_percentage - percentage of unique seqs in original set
+        #  :args outdir - path for saving plot
+        reads_df['Cutoff'] = reads_df.apply(which_cutoff, axis=1)
         coords_dup = reads_df.groupby('Cutoff').sum('Count')
         coords_dup['Percentage'] = 100 * coords_dup['Count'] / n_of_reads
         coords_dup = coords_dup.drop(columns='Count')
@@ -51,24 +51,24 @@ def duplications(all_reads, outdir):
         coords_dedup = coords_dedup.drop(columns='Count')
         groups = [str(i) for i in range(1, 10)]
         groups.extend(['>10', '>50', '>100', '>500', '>1k', '>5k', '>10k'])
-        graph_df = pd.DataFrame(0,index = groups,
-                           columns = ['% Total sequences', '% Deduplicated sequences'])
+        graph_df = pd.DataFrame(0, index=groups,
+                               columns=['% Total sequences', '% Deduplicated sequences'])
         for i in coords_dup.index:
             graph_df.loc[i, '% Total sequences'] = coords_dup.loc[i, 'Percentage']
             graph_df.loc[i, '% Deduplicated sequences'] = coords_dedup.loc[i, 'Percentage']
         # Plot construction starts here
-        dup_plot = graph_df.plot(color=['blue','red'], figsize=(8,6))
+        graph_df.plot(color=['blue', 'red'], figsize=(8, 6))
         plt.ylim(0, 100)
 #         plt.margins(x=0)
         plt.grid(True, axis='x')
-        plt.grid(True,axis='y', color='grey')
+        plt.grid(True, axis='y', color='grey')
         plt.xticks(range(len(graph_df)), groups)
-        for i in range(0,len(graph_df),2):
-            plt.axvspan(i,i+1, color ='lightgrey')
+        for i in range(0, len(graph_df), 2):
+            plt.axvspan(i, i+1, color='lightgrey')
         plt.title(f'Percentage of seqs remaining if deduplicated {round(unique_percentage*100, 2)}%')
         plt.xlabel('Sequence Duplication Level')
         plt.savefig(outdir+'/foo.png', bbox_inches='tight')
-    
+
     def test_dupl_lvl(not_unique_percentage):
         # test for duplication level
         # :args not_unique_percentage - percentage of nonunique seqs in original set
@@ -80,8 +80,7 @@ def duplications(all_reads, outdir):
             return 'W'
         else:
             return 'F'
-        
-        
+
     def test_overrepresented(max_represented):
         # test for duplication level
         # :args not_unique_percentage - percentage of nonunique seqs in original set
@@ -92,19 +91,18 @@ def duplications(all_reads, outdir):
         elif max_represented < 1:
             return 'W'
         else:
-            return 'F'    
-        
-    
+            return 'F'
+
     n_of_reads = len(all_reads) // 4
-    #long reads are trimmed down to 50 nucleotides
-    reads_df = pd.DataFrame(data = [i[:50] if len(i) > 75 else i for i in all_reads[1::4]],
-                        columns=['Sequence'])
+    # long reads are trimmed down to 50 nucleotides
+    reads_df = pd.DataFrame(data=[i[:50] if len(i) > 75 else i for i in all_reads[1::4]],
+                            columns=['Sequence'])
     reads_df = reads_df.value_counts('Sequence').to_frame('Count')
     reads_df['Percentage'] = 100 * reads_df['Count'] / n_of_reads
-    max_represented=max(reads_df['Percentage'])
+    max_represented = max(reads_df['Percentage'])
     overrepresented_test = test_overrepresented(max_represented)
     overrepresnted_df = reads_df[reads_df['Percentage'] >= 0.1]
-    overrepresnted_df.to_csv(path_or_buf=f'{outdir}/overrepresented.tsv',sep='\t')
+    overrepresnted_df.to_csv(path_or_buf=f'{outdir}/overrepresented.tsv', sep='\t')
     unique_percentage = len(reads_df) / n_of_reads
     dupl_test = test_dupl_lvl(1 - unique_percentage)
     draw_plot(reads_df, n_of_reads, unique_percentage, outdir)
