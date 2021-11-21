@@ -21,7 +21,7 @@ with open(input_file) as f:
 
 def main():
     basic_statistics(file, input_file, output_dir)
-    compile_quality(file, output_dir)
+    boxplot_test, per_quality_ps_test = compile_quality(file, output_dir)
     duplications_test, overrepresented_test = duplications(file, output_dir)
 
 
