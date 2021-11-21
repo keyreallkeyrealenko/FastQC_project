@@ -32,6 +32,6 @@ def main():
     per_base_sequence_content(file, output_dir)
     per_sequence_gc_content(file, output_dir)
 
-    
+
 if __name__ == '__main__':
     main()
