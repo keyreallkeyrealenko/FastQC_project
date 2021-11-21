@@ -23,6 +23,8 @@ To run this code just follow these steps:
 You can use both version --input or -i and --output or -o (as default -i set as current directory). --help or -h shows help
 7) wait and enjoy:)
 
+The program was tested on MacOS Monterey 12.0.1, Windows 10 OS, Ubuntu 21.01 and Linux Mint 20.2. It works with
+Python interpreter 3.7-3.9 (it was tested).
 
 ## The functions implemented in this project:
 
