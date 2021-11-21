@@ -57,17 +57,17 @@ def duplications(all_reads, outdir):
             graph_df.loc[i, '% Total sequences'] = coords_dup.loc[i, 'Percentage']
             graph_df.loc[i, '% Deduplicated sequences'] = coords_dedup.loc[i, 'Percentage']
         # Plot construction starts here
-        graph_df.plot(color=['blue', 'red'], figsize=(8, 6))
+        graph_df.plot(color=['blue', 'red'], figsize=(10, 8))
         plt.ylim(0, 100)
-#         plt.margins(x=0)
-        plt.grid(True, axis='x')
-        plt.grid(True, axis='y', color='grey')
+        plt.margins(x=0)
         plt.xticks(range(len(graph_df)), groups)
         for i in range(0, len(graph_df), 2):
             plt.axvspan(i, i+1, color='lightgrey')
         plt.title(f'Percentage of seqs remaining if deduplicated {round(unique_percentage*100, 2)}%')
+        plt.grid(True, axis='x')
+        plt.grid(True, axis='y', color='grey')
         plt.xlabel('Sequence Duplication Level')
-        plt.savefig(outdir+'/foo.png', bbox_inches='tight')
+        plt.savefig(outdir + '/duplications.png')
 
     def test_dupl_lvl(not_unique_percentage):
         # test for duplication level

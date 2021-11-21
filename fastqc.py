@@ -1,6 +1,7 @@
 # It is the main script. It reads Fastq file as input (-i) from a command line
 # and then executes all imported functions and save all plots, tables to output (-o) directory
 import argparse
+import os
 from basic_statistics import basic_statistics
 from boxplots import compile_quality
 from duplications import duplications
@@ -17,6 +18,9 @@ args = parser.parse_args()
 
 input_file = args.input
 output_dir = args.output
+
+if not os.path.exists(output_dir):
+    os.makedirs(output_dir)
 
 with open(input_file) as f:
     file = f.readlines()
