@@ -8,12 +8,12 @@ from basic_statistics import type_check
 def create_boxplot(dataframe, output, encoding):
     max_val = max(dataframe.max())
     if dataframe.shape[1] > 50:
-        dataframe = dataframe.iloc[:,
-                    np.r_[:10, np.arange(11, dataframe.shape[1], step=(dataframe.shape[1] - 10) / 40)]]
+        dataframe = dataframe.iloc[:, np.r_[:10, np.arange(11, dataframe.shape[1],
+                                                           step=(dataframe.shape[1] - 10) / 40)]]
     quartile_25 = dataframe.quantile([0.25]).iloc[0]
     median_val = dataframe.median()
     plt.figure(figsize=(16, 10), dpi=150)
-    ax = sns.boxplot(data=dataframe, showfliers=False, color="#FFFB02", medianprops=dict(color="red"), zorder=10)
+    sns.boxplot(data=dataframe, showfliers=False, color="#FFFB02", medianprops=dict(color="red"), zorder=10)
     ax = sns.pointplot(data=dataframe, errwidth=0.01, scale=0.4, zorder=3)
     sns.set_theme(style="white")
     plt.axhspan(0, 20.1, facecolor='#F77A61', alpha=0.5, zorder=-1)
@@ -50,7 +50,7 @@ def create_quality_plot(dataframe, output):
     max_yvalue = max(dict_df.iloc[:, 1])
     max_xvalue = dict_df.iloc[dict_df.index[dict_df.iloc[:, 1] == max_yvalue].tolist()[0], 0]
     plt.figure(figsize=(16, 10), dpi=150)
-    ax = sns.lineplot(data=dict_df, x=dict_df.iloc[:, 0], y=dict_df.iloc[:, 1], color='red', linewidth=4)
+    sns.lineplot(data=dict_df, x=dict_df.iloc[:, 0], y=dict_df.iloc[:, 1], color='red', linewidth=4)
     sns.set(rc={'figure.figsize': (15, 10)})
     sns.set_style("white")
     sns.despine()

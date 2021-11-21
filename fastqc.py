@@ -2,7 +2,7 @@
 # and then executes all imported functions and save all plots, tables to output (-o) directory
 import argparse
 from basic_statistics import basic_statistics
-
+from boxplots import compile_quality
 parser = argparse.ArgumentParser()
 
 parser.add_argument('-i', '--input', help='directory to .fastq file to execute', required=True)
@@ -19,6 +19,7 @@ with open(input_file) as f:
 
 def main():
     basic_statistics(file, input_file, output_dir)
+    compile_quality(file,output_dir)
 
 
 if __name__ == '__main__':

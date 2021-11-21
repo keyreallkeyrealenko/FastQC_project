@@ -48,6 +48,7 @@ def handler(file):
 
 
 def basic_statistics(file, filename, output):
+    """This function creates a table and sava it in output dir"""
     if '\\' in filename:
         filename = filename.split('\\')[-1]
     elif '/' in filename:
