@@ -27,7 +27,7 @@ with open(input_file) as f:
     file = f.readlines()
 
 sequence = []
-for record in SeqIO.parse(path_to_file, "fastq"):
+for record in SeqIO.parse(input_file, "fastq"):
     sequence += [record.seq]
 
 
