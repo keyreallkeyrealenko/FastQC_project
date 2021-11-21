@@ -8,7 +8,7 @@ project. Our goal is to repeat the work of the FastQC program with the output of
 the same as that performed by FastQC. It is a Python program. 4 contributors participated in the project:
 1) Kirill Kirilenko – performed first three tasks (__Basic Statistics, Per base sequence quality, Per sequence quality scores__)
 2) Semyon Kupriyanov - performed Per base sequence content, Per sequence GC content, Per base N content functions.
-3) Mikhail Slizen - ...
+3) Mikhail Slizen - performed duplications level, overrepresented sequences and tried to compile html report
 4) Ekaterina Vostokova - performed __Adapter content, Sequence Length Distribution__ 
 
 ## How to run the code
