@@ -79,4 +79,4 @@ def basic_statistics(file, filename, output):
                                                                 GC_percent]], font=dict(color='black', size=12),
                                               align='left', fill_color='lightgrey'))], layout=layout)
 
-    return fig.write_image(f'{output}/basic_statistics.pdf')
+    return fig.write_image(output + '/basic_statistics.pdf')

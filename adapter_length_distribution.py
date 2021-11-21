@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+# In[1]:
+
+# In[2]:
 
 
 import matplotlib.pyplot as plt
@@ -16,8 +18,6 @@ def adapter_content(sequence, path_to_dir):
     small_3 = "TGGAATTCTCGG"
     small_5 = "GATCGTCGGACT"
     transposase = "CTGTCTCTTATA"
-    w = 0
-    f = 0
     plt.figure(figsize=(10, 8))
     adapters = [universal, small_3, small_5, transposase]
     max_len = max(len(r1) for r1 in sequence)
@@ -33,9 +33,9 @@ def adapter_content(sequence, path_to_dir):
         values = [count_adapters[k]/len(sequence)*100 for k in keys]
         for x in values:
             if x >= 5:
-                w += 1
+                return "W"
             elif x >= 5:
-                f += 1
+                return "F"
         plt.plot(keys, values)
         count_adapters = [{i: 0} for i in range(max_len)]
     plt.legend(labels=["Illumina Universal Adapter", "Illumina Small RNA 3' Adapter",
@@ -45,3 +45,35 @@ def adapter_content(sequence, path_to_dir):
     plt.ylim(0, 100)
     plt.grid()
     plt.savefig(path_to_dir + r'Adapter_content.png')
+
+
+# In[7]:
+
+
+def sequence_length_distribution(sequence, path_to_dir):
+    lengths = [len(r) for r in sequence]
+    min_len = min(len(r2) for r2 in sequence)
+    if min_len == 0:
+        return "F"
+    distributions = []
+    count_distributions = {}
+    for i in lengths:
+        if i not in distributions:
+            distributions.append(i)
+            count_distributions[i] = 1
+        else:
+            count_distributions[i] += 1
+    if len(count_distributions) == 1:
+        count_distributions[max(count_distributions) + 1] = 0
+        count_distributions[min(count_distributions) - 1] = 0
+    else:
+        return "W"
+    keys = sorted(list(count_distributions.keys()))
+    values = [count_distributions[k] for k in keys]
+    plt.figure(figsize=(10, 8))
+    plt.plot(keys, values)
+    plt.xlabel("Sequence length")
+    plt.title('Sequence length distribution')
+    plt.grid()
+    plt.savefig(path_to_dir + r'Sequence_length_distribution.png')
+# In[ ]:

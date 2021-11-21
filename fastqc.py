@@ -11,6 +11,7 @@ from Fastq_graph import per_base_n_content, per_base_sequence_content, per_seque
 from Bio import SeqIO
 from generate_html import generate_html
 
+
 parser = argparse.ArgumentParser()
 
 parser.add_argument('-i', '--input', help='directory to .fastq file to execute', required=True)
@@ -47,6 +48,7 @@ def main():
     # sequence_gc_content_test = per_sequence_gc_content(file, output_dir)
     per_sequence_gc_content(sequence, output_dir)
     generate_html(output_dir, boxplot_test, per_quality_ps_test, dupl_test, overrepresented_test)
+
 
 
 if __name__ == '__main__':

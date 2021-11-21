@@ -43,7 +43,7 @@ def create_boxplot(dataframe, output, encoding):
         idx[4:None:3] = True
         indexes = np.arange(n).reshape(-1, 2)[idx].ravel()
         plt.xticks(indexes, fontsize=12)
-    plt.savefig(f'{output}/boxplot.png')
+    plt.savefig(output + '/boxplot.png')
     return flag
 
 
@@ -80,7 +80,7 @@ def create_quality_plot(dataframe, output):
     plt.text(max_xvalue - 2, max_yvalue, 'Average Quality per read', color='red', size=14,
              bbox=dict(facecolor='white', edgecolor='grey'))
 
-    plt.savefig(f'{output}/quality_scores.png')
+    plt.savefig(output + '/quality_scores.png')
     return flag
 
 
