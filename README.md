@@ -53,3 +53,9 @@ This function:
 - saves one TSV with overrepresented sequences, each of wich take at least 0.1% of all reads, their count and percentage.
 - returns results for test of duplication level and test for overrepresented seqs
 
+## adapter_content
+This function uses list of sequences and path to output file. It has 4 adapter sequences and finds out the percentage of these adapters in reads.
+Then it plots this percentage over the length of one read.
+
+## sequence_length_distribution
+This function uses list of sequences and path to output file. It checks if all sequences are of the same length and builds the distribution.

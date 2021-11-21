@@ -8,10 +8,12 @@ import matplotlib.pyplot as plt
 
 
 def sequence_length_distribution(sequence, path_to_dir):
+    f = 0
+    w = 0
     lengths = [len(r) for r in sequence]
     min_len = min(len(r2) for r2 in sequence)
     if min_len == 0:
-        return "F"
+        f += 1
     distributions = []
     count_distributions = {}
     for i in lengths:
@@ -24,7 +26,7 @@ def sequence_length_distribution(sequence, path_to_dir):
         count_distributions[max(count_distributions) + 1] = 0
         count_distributions[min(count_distributions) - 1] = 0
     else:
-        return "W"
+        w += 1
     keys = sorted(list(count_distributions.keys()))
     values = [count_distributions[k] for k in keys]
     plt.figure(figsize=(10, 8))
