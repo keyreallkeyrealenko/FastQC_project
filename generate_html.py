@@ -21,5 +21,5 @@ def generate_html(outdir, boxplot_test, per_quality_ps_test, dupl_test, overrepr
     <h2><img src={'./icons/' + overrepresented_test + '.png'}>Overrepresented sequences</h2>
     </body>
     </html>'''
-    with open('fastqc_report.html','w') as out:
+    with open('fastqc_report.html', 'w') as out:
         out.write(html_output)

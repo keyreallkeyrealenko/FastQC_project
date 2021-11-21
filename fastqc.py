@@ -9,7 +9,7 @@ from sequence_length_distribution import sequence_length_distribution
 from adapter_content import adapter_content
 from Fastq_graph import per_base_n_content, per_base_sequence_content, per_sequence_gc_content
 from Bio import SeqIO
-from generate generate_html import generate_html
+from generate_html import generate_html
 
 parser = argparse.ArgumentParser()
 
