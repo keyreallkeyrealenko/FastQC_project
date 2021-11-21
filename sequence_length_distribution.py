@@ -36,7 +36,7 @@ def sequence_length_distribution(sequence, path_to_dir):
     plt.title('Sequence length distribution')
     plt.grid()
     plt.savefig(path_to_dir + r'Sequence_length_distribution.png')
-    
+
     # Alternatively from Stack Overflow
     # from scipy.signal import find_peaks
     # hist, bin_edges = np.histogram(lengths)
