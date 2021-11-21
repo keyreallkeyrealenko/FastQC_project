@@ -7,6 +7,7 @@ from duplications import duplications
 from sequence_length_distribution import sequence_length_distribution
 from adapter_content import adapter_content
 from Fastq_graph import per_base_n_content, per_base_sequence_content, per_sequence_gc_content
+from generate_html import generate_html
 
 parser = argparse.ArgumentParser()
 
@@ -31,6 +32,7 @@ def main():
     per_base_n_content(file, output_dir)
     per_base_sequence_content(file, output_dir)
     per_sequence_gc_content(file, output_dir)
+    generate_html(output_dir, boxplot_test, dupl_test, overrepresented_test)
 
 
 if __name__ == '__main__':
