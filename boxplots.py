@@ -80,7 +80,7 @@ def create_quality_plot(dataframe, output):
     plt.text(max_xvalue - 2, max_yvalue, 'Average Quality per read', color='red', size=14,
              bbox=dict(facecolor='white', edgecolor='grey'))
 
-    plt.savefig(output +'/quality_scores.png')
+    plt.savefig(output + '/quality_scores.png')
     return flag
 
 
