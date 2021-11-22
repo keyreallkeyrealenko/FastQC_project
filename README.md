@@ -20,7 +20,7 @@ To run this code just follow these steps:
 4) activate virtual environment ```source venv/bin/activate```
 5) install all required libraries ```pip install -r requirements.txt```
 6) run script ```python3 fastqc.py -i path_to/input.fastq -o output_dir/```.
-You can use both version --input or -i and --output or -o (as default -i set as current directory). --help or -h shows help
+You can use both version --input or -i and --output or -o (as default -o set as current directory). --help or -h shows help
 7) wait and enjoy:)
 
 The program was tested on MacOS Monterey 12.0.1, Windows 10 OS, Ubuntu 21.01 and Linux Mint 20.2. It works with
